@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<block>
+  <name>NumExpr Evaluate</name>
+  <key>numexpr_evaluate</key>
+  <category>Math Operators</category>
+  <import>from gnuradio.blocks.numexpr_evaluate import numexpr_evaluate</import>
+  <make>numexpr_evaluate(
+        expression=$code, 
+        in_sig=[$sink_type.as_numpy] * $num_sinks,
+        out_sig=[$source_type.as_numpy],
+        nthreads=$nthreads,
+    )</make>
+  <callback>expression = $expression</callback>
+  
+  <param>
+    <name>Expression</name>
+    <key>expression</key>
+    <value>in1</value>
+    <type>string</type>
+  </param>
+  <param>
+    <name>Num Inputs</name>
+    <key>num_sinks</key>
+    <value>1</value>
+    <type>int</type>
+  </param>
+  <param>
+      <name>Input Type</name>
+      <key>sink_type</key>
+      <type>enum</type>
+      <option>
+          <name>Complex</name>
+          <key>complex</key>
+          <opt>as_numpy:numpy.complex64</opt>
+      </option>
+      <option>
+          <name>Float</name>
+          <key>float</key>
+          <opt>as_numpy:numpy.float32</opt>
+      </option>
+      <option>
+          <name>Int</name>
+          <key>int</key>
+          <opt>as_numpy:numpy.int32</opt>
+      </option>
+      <option>
+          <name>Short</name>
+          <key>short</key>
+          <opt>as_numpy:numpy.int16</opt>
+      </option>
+      <option>
+          <name>Byte</name>
+          <key>byte</key>
+          <opt>as_numpy:numpy.uint8</opt>
+      </option>
+  </param>
+  <param>
+      <base_key>sink_type</base_key>
+      <name>Output Type</name>
+      <key>source_type</key>
+  </param>
+  <param>
+      <name>Num Threads</name>
+      <key>nthreads</key>
+      <value>1</value>
+      <type>int</type> 
+      <hide>part</hide>
+      <tab>Advanced</tab>
+  </param>
+  
+  <sink>
+    <name>in</name>
+    <type>$sink_type</type>
+    <nports>$num_sinks</nports>
+  </sink>
+  <source>
+    <name>out</name>
+    <type>$source_type</type>
+  </source>
+</block>
